@@ -27,7 +27,24 @@ app.get("/articles", function(req, res) {
     if (err) {
       res.send(err);
     } else {
-        res.send(foundArticles);
+      res.send(foundArticles);
+    }
+  });
+});
+
+app.post("/articles", function(req, res) {
+  console.log(req.body.title);
+  console.log(req.body.content);
+
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content
+  });
+  newArticle.save(function(err) {
+    if (!err) {
+      res.send("Successfully added a new article");
+    } else {
+      res.send(err);
     }
   });
 });
